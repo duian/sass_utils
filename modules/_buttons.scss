@@ -1,0 +1,88 @@
+@import "compass/css3";
+
+// btn前缀名称
+$ibtn-namespace:           '.btn' !default;
+// 默认背景色
+$ibtn-bgcolor:             $white !default;
+// 字体颜色
+$ibtn-color:               $black !default;
+// 各种类型按钮名称，背景色，字体颜色
+$ibtn-colors:              (primary #0066ff #fff) (inverse #fff #5a5a5a) !default;
+// 字体大小
+$ibtn-font-size:           16px !default;
+
+#{$ibtn-namespace} {
+  padding: 8px 18px;
+  text-align: center;
+  text-decoration: none;
+  border: none;
+  color: $ibtn-color;
+  background-color: $ibtn-bgcolor;
+  font-size: $ibtn-font-size;
+  cursor: pointer;
+  @include ie7-inline-block;
+  @include appearance(none);
+  @include border-radius(3px);
+  @include box-shadow(1px 1px 2px rgba(0, 0, 0, 0.2));
+  @include transition-property(all);
+  @include transition-duration(.3s);
+
+  &:visited {
+    color: $ibtn-color;
+  }
+
+  &:focus,
+  &:hover {
+    background-color: lighten($ibtn-bgcolor, 3%);
+    text-decoration: none;
+    outline: none;
+  }
+
+  &:active,
+  &.active,
+  &.is-active {
+    text-decoration: none;
+    background-color: desaturate($ibtn-bgcolor, 10%);
+    border-color: darken($ibtn-bgcolor, 12%);
+    color: darken($ibtn-bgcolor, 10%);
+    @include text-shadow(0 1px 0 rgba(255, 255, 255, .3));
+    @include transition-duration(0s);
+    @include box-shadow(inset 0 1px 3px rgba(0, 0, 0, .2));
+  }
+}
+@each $ibtn-color in $ibtn-colors {
+  $ibtn-name: nth($ibtn-color, 1);
+  $ibtn-background: nth($ibtn-color, 2);
+  $ibtn-color:      nth($ibtn-color, 3);
+
+  #{$ibtn-namespace}-#{$ibtn-name} {
+    background-color: $ibtn-background;
+    color: $ibtn-color;
+    border-color: $ibtn-background;
+
+    &:visited {
+      color: $ibtn-color;
+    }
+
+    &:focus,
+    &:hover {
+      background-color: lighten($ibtn-background, 10%);
+      border-color: lighten($ibtn-background, 10%);
+      color: $ibtn-color;
+    }
+
+    &:active,
+    &.active,
+    &.is-active {
+      background-color: desaturate($ibtn-background, 10%);
+      border-color: desaturate($ibtn-background, 10%);
+      color: darken($ibtn-background, 10%);
+    }
+  }
+}
+// .btn-primary {
+//   @extend %btn-primary;
+// }
+.btn + .btn {
+  margin-left: 13px;
+}
